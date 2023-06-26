@@ -89,7 +89,6 @@ namespace Connect4
             return dropChoice;
         }
 
-
         public static int CheckFour(char[,] board, PlayerInfo activePlayer)
         {
             char XO;
@@ -182,7 +181,7 @@ namespace Connect4
         {
             int restart;
 
-            Console.Write("Would you like to play again? Yes(1) No(2): ");
+            Console.Write("Would you like to play again? Yes(1) No(2) Game Menu(Press any number): ");
             restart = int.Parse(Console.ReadLine());
             if (restart == 1)
             {
@@ -196,8 +195,17 @@ namespace Connect4
                 }
                 Board.GameBoard(board);//Set new board
             }
-            else
+            else if (restart == 2)
+            {
                 Console.WriteLine("Thank you for playing. See you again!");
+                Environment.Exit(0);
+            }
+            else
+            {
+                Console.Clear();
+                GameOption option = new GameOption();
+                option.Display();
+            }
             return restart;
         }
     }
@@ -258,7 +266,7 @@ namespace Connect4
                 full = Board.FilledBoard(board);
                 if (full == 7)
                 {
-                    Console.WriteLine("OOPS! IT'S A DRAW GAME!");
+                    Console.WriteLine("OOPS! IT'S A DRAW GAME.");
                     again = Restart.PlayAgain(board);
                 }
 
