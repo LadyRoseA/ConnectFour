@@ -2,14 +2,20 @@
 
 namespace Connect4
 {
+    //Game Component Abstract Class
+    public abstract class GameComponent
+    {
+        public abstract void Play();
+    }
 
+    //Player Info Class
     public class PlayerInfo
     {
         public string PlayerName { get; set; }
         public char PlayerSymbol { get; set; }
     }
 
-
+    //Board Class
     class Board
     {
         public static void GameBoard(char[,] board)
@@ -49,9 +55,13 @@ namespace Connect4
     }
 
 
-
-    public class GamePlay
+    //GamePlay Class inherited from GameComponent
+    public class GamePlay : GameComponent
     {
+        public override void Play()
+        {
+        }
+
         public static int PlayerDrop(char[,] board, PlayerInfo activePlayer)
         {
             int dropChoice;
@@ -158,8 +168,12 @@ namespace Connect4
 
     }
 
-    public class Restart
+    //Game Restart inherited from GameComponent
+    public class Restart : GameComponent
     {
+        public override void Play()
+        {
+        }
         public static int PlayAgain(char[,] board)
         {
             int restart;
@@ -183,7 +197,7 @@ namespace Connect4
     }
 
 
-
+    //GameManager Class
     public class GameManager
     {
         public void RunGame()
