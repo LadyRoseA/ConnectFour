@@ -79,12 +79,16 @@ namespace Connect4
 
             while (board[1, dropChoice] == 'X' || board[1, dropChoice] == 'O')
             {
-                Console.WriteLine("That column is full, select another number from 1 to 7: ");
+                Console.Clear();
+                Board.GameBoard(board);//Reprint board after error handling
+                Console.WriteLine();
+                Console.Write("That column is full, select another number from 1 to 7: ");
                 dropChoice = Convert.ToInt32(Console.ReadLine());
+                Console.WriteLine();
             }
-
             return dropChoice;
         }
+
 
         public static int CheckFour(char[,] board, PlayerInfo activePlayer)
         {
@@ -145,6 +149,7 @@ namespace Connect4
 
         public static void PlayerWin(PlayerInfo activePlayer)
         {
+            Console.WriteLine();
             Console.WriteLine(activePlayer.PlayerName + ", CONGRATULATIONS! YOU WIN!");
         }
 
@@ -181,6 +186,7 @@ namespace Connect4
             restart = int.Parse(Console.ReadLine());
             if (restart == 1)
             {
+                Console.Clear();//Clear screen
                 for (int i = 1; i <= 6; i++)
                 {
                     for (int ix = 1; ix <= 7; ix++)
@@ -188,6 +194,7 @@ namespace Connect4
                         board[i, ix] = ' ';
                     }
                 }
+                Board.GameBoard(board);//Set new board
             }
             else
                 Console.WriteLine("Thank you for playing. See you again!");
@@ -259,7 +266,7 @@ namespace Connect4
         }
     }
 
-    //Game Options Class
+    //Game Option Class
     class GameOption
     {
         public void Display()
@@ -282,8 +289,10 @@ namespace Connect4
                     PlayerInfo playerOne = new PlayerInfo();
                     PlayerInfo playerTwo = new PlayerInfo();
 
-                    Console.WriteLine("This is Connect 4 Game. Let's play!");
+                    Console.WriteLine("Let's play Connect 4. Let's go!");
                     Console.WriteLine();
+                    Console.WriteLine("Two Player Human Game Mode");
+                    Console.WriteLine("--------------------------");
                     Console.Write("Please enter PLAYER 1 name: ");
                     playerOne.PlayerName = Console.ReadLine();
                     playerOne.PlayerSymbol = 'X';
@@ -308,7 +317,6 @@ namespace Connect4
                     break;
             }
         }
-
     }
 
     //Main Program Class
