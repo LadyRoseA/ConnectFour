@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Numerics;
 
 namespace Connect4
 {
@@ -28,15 +29,18 @@ namespace Connect4
             Console.WriteLine("   1   2   3   4   5   6   7");
             for (i = 1; i <= rows; i++)
             {
+                //Console.Write(" |  ");
                 for (ix = 1; ix <= columns; ix++)
                 {
                     if (board[i, ix] != 'X' && board[i, ix] != 'O')
                         board[i, ix] = ' ';
 
+                    //Console.Write(board[i, ix]);
                     Console.Write($" | {board[i, ix]}");
 
                 }
                 Console.WriteLine(" | ");
+                //Console.Write(" | \n");
             }
             Console.WriteLine("_______________________________");
         }
@@ -53,7 +57,6 @@ namespace Connect4
             return full;
         }
     }
-
 
     //GamePlay Class inherited from GameComponent
     public class GamePlay : GameComponent
@@ -76,7 +79,7 @@ namespace Connect4
 
             while (board[1, dropChoice] == 'X' || board[1, dropChoice] == 'O')
             {
-                Console.WriteLine("That column is Full, choose another number from 1 to 7: ");
+                Console.WriteLine("That column is full, select another number from 1 to 7: ");
                 dropChoice = Convert.ToInt32(Console.ReadLine());
             }
 
@@ -93,10 +96,8 @@ namespace Connect4
 
             for (int i = 6; i >= 1; --i)
             {
-
                 for (int ix = 7; ix >= 1; --ix)
                 {
-
                     if (board[i, ix] == XO &&
                         board[i - 1, ix - 1] == XO &&
                         board[i - 2, ix - 2] == XO &&
@@ -104,7 +105,6 @@ namespace Connect4
                     {
                         win = 1;
                     }
-
 
                     if (board[i, ix] == XO &&
                         board[i, ix - 1] == XO &&
@@ -138,7 +138,6 @@ namespace Connect4
                         win = 1;
                     }
                 }
-
             }
 
             return win;
@@ -165,7 +164,6 @@ namespace Connect4
                     --length;
             } while (turn != 1);
         }
-
     }
 
     //Game Restart inherited from GameComponent
@@ -174,6 +172,7 @@ namespace Connect4
         public override void Play()
         {
         }
+
         public static int PlayAgain(char[,] board)
         {
             int restart;
@@ -196,26 +195,26 @@ namespace Connect4
         }
     }
 
-
     //GameManager Class
     public class GameManager
     {
-        public void RunGame()
+        public void RunGame(PlayerInfo playerOne, PlayerInfo playerTwo)
         {
-            PlayerInfo playerOne = new PlayerInfo();
-            PlayerInfo playerTwo = new PlayerInfo();
+            //PlayerInfo playerOne = new PlayerInfo();
+            //PlayerInfo playerTwo = new PlayerInfo();
 
             char[,] board = new char[9, 10];
             int dropChoice, win, full, again;
 
-            Console.WriteLine("This is Connect 4 Game. Let's play!");
+            /*Console.WriteLine("Let's play Connect 4. Let's go!");
             Console.WriteLine();
             Console.Write("Please enter PLAYER 1 name: ");
             playerOne.PlayerName = Console.ReadLine();
             playerOne.PlayerSymbol = 'X';
             Console.Write("Please enter PLAYER 2 name: ");
             playerTwo.PlayerName = Console.ReadLine();
-            playerTwo.PlayerSymbol = 'O';
+            playerTwo.PlayerSymbol = 'O';*/
+
             Console.Clear();//Clear screen and start game
             again = 0;
             Board.GameBoard(board);//Initialize game board print
@@ -260,15 +259,66 @@ namespace Connect4
         }
     }
 
+    //Game Options Class
+    class GameOption
+    {
+        public void Display()
+        {
+            Console.WriteLine("------- Connect 4 Game -------");
+            Console.WriteLine();
+            Console.WriteLine("Please select game mode:");
+            Console.WriteLine();
+            Console.WriteLine("(1) Two Player Human");
+            Console.WriteLine("(2) Two Player Human vs AI");
+            Console.WriteLine("(3) Exit Game");
+            Console.WriteLine();
+            Console.Write("Select your choice (1-3): ");
 
+            string input = Console.ReadLine();
+            switch (input)
+            {
+                case "1":
+                    Console.Clear();
+                    PlayerInfo playerOne = new PlayerInfo();
+                    PlayerInfo playerTwo = new PlayerInfo();
+
+                    Console.WriteLine("This is Connect 4 Game. Let's play!");
+                    Console.WriteLine();
+                    Console.Write("Please enter PLAYER 1 name: ");
+                    playerOne.PlayerName = Console.ReadLine();
+                    playerOne.PlayerSymbol = 'X';
+                    Console.Write("Please enter PLAYER 2 name: ");
+                    playerTwo.PlayerName = Console.ReadLine();
+                    playerTwo.PlayerSymbol = 'O';
+                    GameManager gameManager = new GameManager();
+                    gameManager.RunGame(playerOne, playerTwo); // Pass player information to RunGame method
+                    break;
+                case "2":
+                    // ...
+                    break;
+                case "3":
+                    Console.WriteLine();
+                    Console.WriteLine("Thanks for playing!");
+                    break;
+                default:
+                    Console.WriteLine();
+                    Console.WriteLine("Invalid input. Please select a valid option.");
+                    Console.WriteLine();
+                    Display();
+                    break;
+            }
+        }
+
+    }
+
+    //Main Program Class
     public class Program
     {
         public static void Main()
         {
-            GameManager gameManager = new GameManager();
-            gameManager.RunGame();
+            GameOption option = new GameOption();
+            option.Display();
         }
     }
 
 }
-
