@@ -1,6 +1,4 @@
-﻿
-using System;
-
+﻿using System;
 
 namespace Connect4
 {
@@ -24,18 +22,15 @@ namespace Connect4
             Console.WriteLine("   1   2   3   4   5   6   7");
             for (i = 1; i <= rows; i++)
             {
-                //Console.Write(" |  ");
                 for (ix = 1; ix <= columns; ix++)
                 {
                     if (board[i, ix] != 'X' && board[i, ix] != 'O')
                         board[i, ix] = ' ';
 
-                    //Console.Write(board[i, ix]);
                     Console.Write($" | {board[i, ix]}");
 
                 }
                 Console.WriteLine(" | ");
-                //Console.Write(" | \n");
             }
             Console.WriteLine("_______________________________");
         }
@@ -64,7 +59,7 @@ namespace Connect4
             Console.WriteLine(activePlayer.PlayerName + "'s Turn ");
             do
             {
-                Console.WriteLine("Choose a number from 1 to 7: ");
+                Console.Write("Choose a number from 1 to 7: ");
                 dropChoice = Convert.ToInt32(Console.ReadLine());
                 Console.Clear();
             } while (dropChoice < 1 || dropChoice > 7);
@@ -141,7 +136,7 @@ namespace Connect4
 
         public static void PlayerWin(PlayerInfo activePlayer)
         {
-            Console.WriteLine(activePlayer.PlayerName + " CONGRATULATIONS! YOU WIN!");
+            Console.WriteLine(activePlayer.PlayerName + ", CONGRATULATIONS! YOU WIN!");
         }
 
         public static void CheckBellow(char[,] board, PlayerInfo activePlayer, int dropChoice)
@@ -169,7 +164,7 @@ namespace Connect4
         {
             int restart;
 
-            Console.WriteLine("Would you like to play again? Yes(1) No(2): ");
+            Console.Write("Would you like to play again? Yes(1) No(2): ");
             restart = int.Parse(Console.ReadLine());
             if (restart == 1)
             {
@@ -201,15 +196,15 @@ namespace Connect4
 
             Console.WriteLine("This is Connect 4 Game. Let's play!");
             Console.WriteLine();
-            Console.WriteLine("Please enter PLAYER 1 name: ");
+            Console.Write("Please enter PLAYER 1 name: ");
             playerOne.PlayerName = Console.ReadLine();
             playerOne.PlayerSymbol = 'X';
-            Console.WriteLine("Please enter PLAYER 2 name: ");
+            Console.Write("Please enter PLAYER 2 name: ");
             playerTwo.PlayerName = Console.ReadLine();
             playerTwo.PlayerSymbol = 'O';
-
+            Console.Clear();//Clear screen and start game
             again = 0;
-
+            Board.GameBoard(board);//Initialize game board print
             do
             {
                 dropChoice = GamePlay.PlayerDrop(board, playerOne);
